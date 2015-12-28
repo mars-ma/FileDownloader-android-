@@ -30,7 +30,7 @@ public class DownloadUtil {
 	private static int blockSize = 1024 * 1024 ; // 2MB
 
 	public static void download(final String urlAddress, final String path, final boolean cover,
-			final DownloadCallBack callback) {
+			final DownloadCallBack callback,final boolean noProgress) {
 		Runnable download = new Runnable() {
 			@Override
 			public void run() {
@@ -66,7 +66,7 @@ public class DownloadUtil {
 					int contentLength = con.getContentLength();
 					Logger.e("长度 :" + contentLength / 1024 + "KB");
 
-					if (contentLength > blockSize) {
+					if (contentLength > blockSize&&!noProgress) {
 						Logger.e("文件长度大于2MB,使用多线程模式 blockSize " + blockSize + " B");
 						int threadNum = contentLength % blockSize == 0 ? (contentLength / blockSize)
 								: (contentLength / blockSize) + 1;
@@ -132,7 +132,7 @@ public class DownloadUtil {
 						int downloadedByte = 0;
 						while ((len = is.read(bs)) != -1) {
 							os.write(bs, 0, len);
-							if (callback != null) {
+							if (callback != null&&!noProgress&&contentLength>0) {
 								downloadedByte += len;
 								int progress = (int) (((float) downloadedByte / contentLength) * 100);
 								Logger.e("downloadedByte " + downloadedByte + " contentLength " + contentLength);

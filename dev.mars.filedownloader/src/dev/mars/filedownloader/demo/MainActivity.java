@@ -1,10 +1,9 @@
 package dev.mars.filedownloader.demo;
 
-import android.support.v7.app.ActionBarActivity;
-
 import java.io.File;
 import java.io.IOException;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -17,9 +16,8 @@ import dev.mars.filedownloader.DownloadUtil.DownloadCallBack;
 import dev.mars.filedownloader.R;
 import dev.mars.filedownloader.R.id;
 import dev.mars.filedownloader.R.layout;
-import dev.mars.filedownloader.R.menu;
 
-public class MainActivity extends ActionBarActivity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener {
 
 	Button btnDownload;
 	private Handler mHandler = new Handler();
@@ -94,7 +92,7 @@ public class MainActivity extends ActionBarActivity implements OnClickListener {
 							}
 						});
 					}
-				});
+				},false);
 	}
 
 }
